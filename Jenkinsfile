@@ -37,13 +37,13 @@ pipeline {
             steps {
                 dir('artifacts/terraform') {
                     sh 'terraform init -input=false'
-                sh 'terraform workspace select ${environment} || terraform workspace new ${environment}'
+                    sh 'terraform workspace select ${environment} || terraform workspace new ${environment}'
 
-                sh "terraform plan -input=false -out tfplan "
-                sh 'terraform show -no-color tfplan > tfplan.txt'
+                    sh "terraform plan -input=false -out tfplan "
+                    sh 'terraform show -no-color tfplan > tfplan.txt'
 
-                }
-                            }
+                   }
+              }
         }
         stage('Approval') {
            when {
@@ -59,11 +59,13 @@ pipeline {
             
 
            steps {
+                dir('artifacts/terraform') {
                script {
                     def plan = readFile 'tfplan.txt'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                }
+              }
            }
        }
 
@@ -75,7 +77,9 @@ pipeline {
             }
             
             steps {
+                 dir('artifacts/terraform') {
                 sh "terraform apply -input=false tfplan"
+                 }
             }
         }
         
@@ -85,7 +89,9 @@ pipeline {
             }
         
         steps {
+             dir('artifacts/terraform') {
            sh "terraform destroy --auto-approve"
+             }
         }
     }
 
