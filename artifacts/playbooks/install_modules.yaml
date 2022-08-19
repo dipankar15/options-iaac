@@ -1,1 +1,37 @@
+---
+- name: Install modules
+  hosts: all
+  become: true
+  
+  tasks:
+  - name: Update APT package manager repositories cache
+    become: true
+    apt:
+      update_cache: yes
 
+  - name: Install OpenJDK Java
+    become: yes
+    apt:
+      name: openjdk-8-jdk
+      state: present
+
+  - name: Create cron directory if it does not exist
+    file:
+     path: 'cron'
+     state: directory    
+
+  - name: Creates sub directory
+    file:
+     path: "{{ item }}"
+     state: directory
+    with_items:
+     - cron/job
+     - cron/cache
+     - cron/log
+
+  - name: Creates an entry like "@reboot runScanner.sh"
+    ansible.builtin.cron:
+     name: "a job for reboot"
+     special_time: reboot
+     job: "/home/ubuntu/cron/job/runScanner.sh"
+   
