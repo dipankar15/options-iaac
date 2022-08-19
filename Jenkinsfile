@@ -21,7 +21,7 @@ pipeline {
                  script{
                         dir("terraform")
                         {
-                            git "https://github.com/dipankar15/options-iaac.git"
+                            git branch: "main", url: "https://github.com/dipankar15/options-iaac.git"
                         }
                     }
                 }
