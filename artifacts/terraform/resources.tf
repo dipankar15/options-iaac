@@ -31,7 +31,7 @@ resource "aws_instance" "options-vm" {
   }
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -u ${var.ansible_user} --private-key /home/dipankar/${var.private_key}.pem -i ${aws_instance.options-vm.0.public_ip}, ../playbooks/install_modules.yaml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -u ${var.ansible_user} --private-key /jenkeys/${var.private_key}.pem -i ${aws_instance.options-vm.0.public_ip}, ../playbooks/install_modules.yaml"
   }
 
  
