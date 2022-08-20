@@ -16,7 +16,7 @@ variable "private_key" {
   default = "options-key"
 }
 variable "private_key_file" {
-  default = "/home/ubuntu/options-key.pem"
+  default = "/jenkeys/options-key.pem"
 }
 
 variable "ansible_user" {
