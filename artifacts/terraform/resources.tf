@@ -29,6 +29,10 @@ resource "aws_instance" "options-vm" {
   provisioner "remote-exec" {
     inline = ["sudo apt update -y","sudo apt-get install python3 -y"]
   }
+  
+  provisioner "local-exec" {
+    command = "ansible-playbook"
+  }
 
   provisioner "local-exec" {
     command = "ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -u ${var.ansible_user} --private-key /jenkeys/${var.private_key}.pem -i ${aws_instance.options-vm.0.public_ip}, ../playbooks/install_modules.yaml"
