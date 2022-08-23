@@ -12,6 +12,7 @@ pipeline {
      environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        VM_IP='';
     }
 
 
@@ -79,6 +80,7 @@ pipeline {
             steps {
                  dir('artifacts/terraform') {
                 sh "terraform apply -input=false tfplan"
+                VM_IP = sh(returnStdout: true, script: "terraform output").trim()
                  }
             }
         }
