@@ -80,7 +80,7 @@ pipeline {
                  dir('artifacts/terraform') {
                                 script {
                  sh "terraform apply -input=false tfplan"
-                     env.VM_IP = sh (returnStdout: true, script: "terraform output ")    
+                     env.VM_IP = sh (returnStdout: true, script: "terraform apply -input=false tfplan")    
                                                     echo 'VM_IP: ' + env.VM_IP
                                 }
                  }             
