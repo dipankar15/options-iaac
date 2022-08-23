@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         string(name: 'environment', defaultValue: 'terraform', description: 'Workspace/environment file to use for deployment')
-        booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
+        booleanParam(name: 'autoApprove', defaultValue: true, description: 'Automatically run apply after generating plan?')
         booleanParam(name: 'destroy', defaultValue: false, description: 'Destroy Terraform build?')
 
     }
@@ -78,13 +78,12 @@ pipeline {
             
             steps {
                  dir('artifacts/terraform') {
-                sh "terraform apply -input=false tfplan"
+                 sh "terraform apply -input=false tfplan"
                  }
                
                 steps {
                     dir('artifacts/terraform') {                
-                     def VM_IP = sh(returnStdout: true, script: 'terraform output').trim()
-                    }
+                    sh("terraform output")                   }
 
                 }
             }
