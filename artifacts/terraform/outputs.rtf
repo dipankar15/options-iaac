@@ -1,5 +1,5 @@
 output "options-vm" {
-  value = "ssh -i 'options-key.pem' ubuntu@${aws_instance.options-vm.0.public_ip}"
+  value = "${aws_instance.options-vm.0.public_ip}"
 }
 
 
