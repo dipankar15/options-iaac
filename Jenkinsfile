@@ -79,7 +79,7 @@ pipeline {
             steps {
                  dir('artifacts/terraform') {
                  sh "terraform apply -input=false tfplan"
-                     VM_IP=${}     
+                     VM_IP="${aws_instance.options-vm.0.public_ip}"     
                  }             
                
             }
