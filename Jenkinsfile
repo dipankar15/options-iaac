@@ -79,13 +79,9 @@ pipeline {
             steps {
                  dir('artifacts/terraform') {
                  sh "terraform apply -input=false tfplan"
-                 }
+                     sh("terraform output")     
+                 }             
                
-                steps {
-                    dir('artifacts/terraform') {                
-                    sh("terraform output")                   }
-
-                }
             }
         }
         
