@@ -78,10 +78,10 @@ pipeline {
             
             steps {
                  dir('artifacts/terraform') {
-                                script {
+                     //           script {
                  sh "terraform apply -input=false tfplan"
-                     VM_IP = sh (returnStdout: true, script: "terraform output -raw options-vm")     
-                                }
+                     //VM_IP = sh (returnStdout: true, script: "terraform output -raw options-vm")     
+                       //         }
                  }             
                
             }
