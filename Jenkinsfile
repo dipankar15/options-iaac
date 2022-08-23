@@ -79,7 +79,7 @@ pipeline {
             steps {
                  dir('artifacts/terraform') {
                  sh "terraform apply -input=false tfplan"
-                     VM_IP=sh "terraform output -json instance_ips | jq -r '.[0]'"     
+                     VM_IP = sh (returnStdout: true, script: "terraform output -json instance_ips | jq -r '.[0]'")     
                  }             
                
             }
