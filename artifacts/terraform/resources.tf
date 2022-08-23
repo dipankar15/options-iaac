@@ -34,7 +34,9 @@ resource "aws_instance" "options-vm" {
     command = "ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -u ${var.ansible_user} --private-key /jenkeys/${var.private_key}.pem -i ${aws_instance.options-vm.0.public_ip}, ../playbooks/install_modules.yaml"
   }
 
- 
+  output "options-vm-ip" {
+  value = "${aws_instance.options-vm.0.public_ip}"
+  }
   tags = {
     Name     = "options-scanner-${count.index +1 }"
   }
